@@ -1,7 +1,0 @@
-com/pcm/invent/store/model/InventorySubCategory.class
-com/pcm/invent/store/boot/MongoConfig.class
-com/pcm/invent/store/model/InventoryCategory.class
-com/pcm/invent/store/contoller/InventoryContoller.class
-com/pcm/invent/store/model/Inventory.class
-com/pcm/invent/store/mongo/MongoInventoryRepository.class
-Application.class

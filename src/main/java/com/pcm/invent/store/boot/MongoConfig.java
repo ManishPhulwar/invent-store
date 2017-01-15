@@ -3,6 +3,9 @@ package com.pcm.invent.store.boot;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,9 +24,55 @@ import com.pcm.invent.store.Application;
 
 @Component
 @Configuration
-@EnableMongoRepositories(basePackageClasses= Application.class)
+@EnableMongoRepositories(basePackageClasses = Application.class)
 @EnableCaching
+@EnableConfigurationProperties
+@ConfigurationProperties(prefix = "invent-store.mongo")
 public class MongoConfig extends AbstractMongoConfiguration {
+
+	@NotEmpty
+	private String serverAddress;
+
+	@NotEmpty
+	private String userName;
+
+	@NotEmpty
+	private String password;
+
+	@NotEmpty
+	private String dbToAuthenticate;
+
+	public String getServerAddress() {
+		return serverAddress;
+	}
+
+	public void setServerAddress(String serverAddress) {
+		this.serverAddress = serverAddress;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getDbToAuthenticate() {
+		return dbToAuthenticate;
+	}
+
+	public void setDbToAuthenticate(String dbToAuthenticate) {
+		this.dbToAuthenticate = dbToAuthenticate;
+	}
 
 	@Override
 	protected String getDatabaseName() {
@@ -36,17 +85,17 @@ public class MongoConfig extends AbstractMongoConfiguration {
 		MongoClientOptions.Builder builder = MongoClientOptions.builder();
 		MongoClientOptions options = builder.connectionsPerHost(100).build();
 		List<MongoCredential> credentials = new ArrayList<MongoCredential>();
-		credentials.add(MongoCredential.createCredential("superuser", "admin","6789".toCharArray()));
-		return new MongoClient(new ServerAddress("localhost"),credentials,options);
+		credentials.add(MongoCredential.createCredential(userName, dbToAuthenticate, password.toCharArray()));
+		return new MongoClient(new ServerAddress(serverAddress), credentials, options);
 	}
-	
+
 	@Override
 	@Bean
-	public MongoTemplate mongoTemplate() throws Exception{
+	public MongoTemplate mongoTemplate() throws Exception {
 		MongoTemplate template = new MongoTemplate(mongo(), getDatabaseName());
 		template.setWriteConcern(MAJORITY);
 		return template;
-		
+
 	}
 
 }

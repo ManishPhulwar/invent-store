@@ -4,6 +4,7 @@ import java.time.Instant;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.annotation.TypeAlias;
@@ -24,54 +25,60 @@ public class Inventory {
 	@TextIndexed
 	private int itemCode;
 
-	@NotNull
+	@NotBlank
 	private String name;
 
+	@NotBlank
+	private String categoryId;
+
+	@NotBlank
+	private String subCategoryId;
+
+	@NotBlank
+	private String unitId;
+
 	@NotNull
-	private double costPrice;
+	private boolean uesd;
 
-	private int availabe;
+	@NotNull
+	private boolean consumable;
 
-	private int reOrderLevel;
+	@NotBlank
+	private String supplierId;
 
 	private Instant created;
 
 	private Instant lastModified;
 
+	@NotBlank
 	private String createdBy;
 
+	@NotBlank
 	private String lastModifiedBy;
-
-	private boolean consumable;
-
-	private String categoryId;
-
-	private String subCategoryId;
 
 	public Inventory() {
 
 	}
 
 	@PersistenceConstructor
-	public Inventory(int itemCode, String name, double costPrice, int availabe, int reOrderLevel, Instant created,
-			Instant lastModified, String createdBy, String lastModifiedBy, boolean consumable, String categoryId,
-			String subCategoryId) {
+	public Inventory(int itemCode, String name, String categoryId, String subCategoryId, String unitId, boolean uesd,
+			boolean consumable, String supplierId, Instant created, Instant lastModified, String createdBy,
+			String lastModifiedBy) {
 		super();
 		this.itemCode = itemCode;
 		this.name = name;
-		this.costPrice = costPrice;
-		this.availabe = availabe;
-		this.reOrderLevel = reOrderLevel;
+		this.categoryId = categoryId;
+		this.subCategoryId = subCategoryId;
+		this.unitId = unitId;
+		this.uesd = uesd;
+		this.consumable = consumable;
+		this.supplierId = supplierId;
 		this.created = created;
 		this.lastModified = lastModified;
 		this.createdBy = createdBy;
 		this.lastModifiedBy = lastModifiedBy;
-		this.consumable = consumable;
-		this.categoryId = categoryId;
-		this.subCategoryId = subCategoryId;
 	}
 
-	
 	public int getItemCode() {
 		return itemCode;
 	}
@@ -88,28 +95,52 @@ public class Inventory {
 		this.name = name;
 	}
 
-	public double getCostPrice() {
-		return costPrice;
+	public String getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCostPrice(double costPrice) {
-		this.costPrice = costPrice;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
 
-	public int getAvailabe() {
-		return availabe;
+	public String getSubCategoryId() {
+		return subCategoryId;
 	}
 
-	public void setAvailabe(int availabe) {
-		this.availabe = availabe;
+	public void setSubCategoryId(String subCategoryId) {
+		this.subCategoryId = subCategoryId;
 	}
 
-	public int getReOrderLevel() {
-		return reOrderLevel;
+	public String getUnitId() {
+		return unitId;
 	}
 
-	public void setReOrderLevel(int reOrderLevel) {
-		this.reOrderLevel = reOrderLevel;
+	public void setUnitId(String unitId) {
+		this.unitId = unitId;
+	}
+
+	public boolean isUesd() {
+		return uesd;
+	}
+
+	public void setUesd(boolean uesd) {
+		this.uesd = uesd;
+	}
+
+	public boolean isConsumable() {
+		return consumable;
+	}
+
+	public void setConsumable(boolean consumable) {
+		this.consumable = consumable;
+	}
+
+	public String getSupplierId() {
+		return supplierId;
+	}
+
+	public void setSupplierId(String supplierId) {
+		this.supplierId = supplierId;
 	}
 
 	public Instant getCreated() {
@@ -142,30 +173,6 @@ public class Inventory {
 
 	public void setLastModifiedBy(String lastModifiedBy) {
 		this.lastModifiedBy = lastModifiedBy;
-	}
-
-	public boolean isConsumable() {
-		return consumable;
-	}
-
-	public void setConsumable(boolean consumable) {
-		this.consumable = consumable;
-	}
-
-	public String getCategoryId() {
-		return categoryId;
-	}
-
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
-	}
-
-	public String getSubCategoryId() {
-		return subCategoryId;
-	}
-
-	public void setSubCategoryId(String subCategoryId) {
-		this.subCategoryId = subCategoryId;
 	}
 
 	public static int getID_MAX() {

@@ -1,0 +1,17 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: local
+
+---
+spring:
+  profiles: local
+invent-store:
+  mongo:
+    server-address: localhost
+    user-name: superuser
+    password: 6789
+    db-to-authenticate: admin
+    
+  

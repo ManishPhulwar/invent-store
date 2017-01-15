@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,7 @@ public class InventoryContoller {
 
 	@Autowired
 	private MongoInventoryRepository inventoryRepo;
-	
+
 	@Autowired
 	private CounterService counterService;
 
@@ -40,12 +41,8 @@ public class InventoryContoller {
 	}
 
 	@PostMapping(consumes = "application/json", produces = "application/json")
-	public ResponseEntity<?> post(@RequestBody Inventory inventory, BindingResult bindingResult,
+	public ResponseEntity<?> post(@RequestBody @Validated Inventory inventory, BindingResult bindingResult,
 			UriComponentsBuilder uri) {
-
-		if (bindingResult.hasErrors()) {
-			return new ResponseEntity<BindingResult>(bindingResult, HttpStatus.BAD_REQUEST);
-		}
 		Instant created = Instant.now();
 		inventory.setItemCode(counterService.getNextSquence("inventoryId"));
 		inventory.setCreated(created);

@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -26,6 +27,7 @@ public class Inventory {
 	private int itemCode;
 
 	@NotBlank
+	@Indexed(unique = true)
 	private String name;
 
 	@NotBlank

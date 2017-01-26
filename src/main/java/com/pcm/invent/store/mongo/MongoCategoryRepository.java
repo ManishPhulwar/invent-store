@@ -7,5 +7,6 @@ import com.pcm.invent.store.model.Category;
 public interface MongoCategoryRepository extends MongoRepository<Category, String> {
 
 	Category findByName(String categoryName);
+	Category findById(int id);
 
 }

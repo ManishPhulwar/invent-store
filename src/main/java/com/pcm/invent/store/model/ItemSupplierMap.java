@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class ItemSupplierMap {
 
 	@Id
-	private String id;
+	private String mappingId;
 
 	@NotNull
 	private int itemCode;
@@ -46,10 +46,10 @@ public class ItemSupplierMap {
 
 	}
 
-	public ItemSupplierMap(String id, int itemCode, int supplierCode, double itemCostPrice, float suppliedQuantity,
-			Instant created, Instant lastModified, String createdBy, String lastModifiedBy) {
+	public ItemSupplierMap(String mappingId, int itemCode, int supplierCode, double itemCostPrice,
+			float suppliedQuantity, Instant created, Instant lastModified, String createdBy, String lastModifiedBy) {
 		super();
-		this.id = id;
+		this.mappingId = mappingId;
 		this.itemCode = itemCode;
 		this.supplierCode = supplierCode;
 		this.itemCostPrice = itemCostPrice;
@@ -60,12 +60,12 @@ public class ItemSupplierMap {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public String getId() {
-		return id;
+	public String getMappingId() {
+		return mappingId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setMappingId(String mappingId) {
+		this.mappingId = mappingId;
 	}
 
 	public int getItemCode() {

@@ -20,7 +20,7 @@ public class Stock {
 
 	@Id
 	@TextIndexed
-	private int stockId;
+	private String stockId;
 
 	@NotNull
 	private int ItemCode;
@@ -59,9 +59,9 @@ public class Stock {
 
 	}
 
-	public Stock(int stockId, int itemCode, float availableQuantity, float maxLevel, float minLevel, float reorderLevel,
-			double costPrice, String rackNumber, String remark, Instant created, Instant lastModified, String createdBy,
-			String lastModifiedBy) {
+	public Stock(String stockId, int itemCode, float availableQuantity, float maxLevel, float minLevel,
+			float reorderLevel, double costPrice, String rackNumber, String remark, Instant created,
+			Instant lastModified, String createdBy, String lastModifiedBy) {
 		super();
 		this.stockId = stockId;
 		ItemCode = itemCode;
@@ -78,11 +78,11 @@ public class Stock {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public int getStockId() {
+	public String getStockId() {
 		return stockId;
 	}
 
-	public void setStockId(int stockId) {
+	public void setStockId(String stockId) {
 		this.stockId = stockId;
 	}
 

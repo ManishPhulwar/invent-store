@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,7 +44,7 @@ public class InventoryContoller {
 	@PostMapping(consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> post(@RequestBody @Validated Inventory inventory) {
 		Instant created = Instant.now();
-		inventory.setItemCode(counterService.getNextSquence("inventoryId"));
+		inventory.setItemCode(counterService.getNextSquence("itemCode"));
 		inventory.setCreated(created);
 		inventory.setLastModified(created);
 		Inventory saved = inventoryRepo.insert(inventory);
@@ -51,14 +52,14 @@ public class InventoryContoller {
 
 	}
 
-	@PostMapping(path = "/{inventoryId}", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<?> put(@PathVariable String inventoryId, @RequestBody @Validated Inventory inventory) {
+	@PutMapping(path = "/{itemCode}", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> put(@PathVariable String itemCode, @RequestBody @Validated Inventory inventory) {
 
-		if (!Objects.equals(inventoryId, inventory.getName())) {
-			return new BadRequest("The request path doesn't match the Id in reqauet body " + inventoryId)
+		if (!Objects.equals(itemCode, inventory.getItemCode())) {
+			return new BadRequest("The request path doesn't match the Id in reqauet body " + itemCode)
 					.asResponseEntity();
 		}
-		Inventory found = inventoryRepo.findById(inventoryId);
+		Inventory found = inventoryRepo.findByItemCode(itemCode);
 		if (found == null) {
 			return new BadRequest("Record with Inventory Id provided to update is not present in system")
 					.asResponseEntity();

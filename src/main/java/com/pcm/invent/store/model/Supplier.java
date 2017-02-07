@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Supplier {
 
 	@Id
-	private int supplierCode;
+	private String supplierId;
 
 	@NotBlank
 	private String supplierName;
@@ -55,11 +55,11 @@ public class Supplier {
 
 	}
 
-	public Supplier(int supplierCode, String supplierName, String contactPerson, Address supplierAddress,
+	public Supplier(String supplierId, String supplierName, String contactPerson, Address supplierAddress,
 			String mobileNumber, String telephoneNumber, String emailAddress, boolean status, Instant created,
 			Instant lastModified, String createdBy, String lastModifiedBy) {
 		super();
-		this.supplierCode = supplierCode;
+		this.supplierId = supplierId;
 		this.supplierName = supplierName;
 		this.contactPerson = contactPerson;
 		this.supplierAddress = supplierAddress;
@@ -73,12 +73,12 @@ public class Supplier {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public int getSupplierCode() {
-		return supplierCode;
+	public String getSupplierId() {
+		return supplierId;
 	}
 
-	public void setSupplierCode(int supplierCode) {
-		this.supplierCode = supplierCode;
+	public void setSupplierId(String supplierId) {
+		this.supplierId = supplierId;
 	}
 
 	public String getSupplierName() {

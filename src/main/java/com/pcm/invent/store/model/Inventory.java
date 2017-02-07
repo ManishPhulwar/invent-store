@@ -45,9 +45,6 @@ public class Inventory {
 	@NotNull
 	private boolean consumable;
 
-	@NotBlank
-	private String supplierId;
-
 	private Instant created;
 
 	private Instant lastModified;
@@ -64,8 +61,7 @@ public class Inventory {
 
 	@PersistenceConstructor
 	public Inventory(int itemCode, String name, String categoryId, String subCategoryId, String unitId, boolean uesd,
-			boolean consumable, String supplierId, Instant created, Instant lastModified, String createdBy,
-			String lastModifiedBy) {
+			boolean consumable, Instant created, Instant lastModified, String createdBy, String lastModifiedBy) {
 		super();
 		this.itemCode = itemCode;
 		this.name = name;
@@ -74,7 +70,6 @@ public class Inventory {
 		this.unitId = unitId;
 		this.uesd = uesd;
 		this.consumable = consumable;
-		this.supplierId = supplierId;
 		this.created = created;
 		this.lastModified = lastModified;
 		this.createdBy = createdBy;
@@ -135,14 +130,6 @@ public class Inventory {
 
 	public void setConsumable(boolean consumable) {
 		this.consumable = consumable;
-	}
-
-	public String getSupplierId() {
-		return supplierId;
-	}
-
-	public void setSupplierId(String supplierId) {
-		this.supplierId = supplierId;
 	}
 
 	public Instant getCreated() {

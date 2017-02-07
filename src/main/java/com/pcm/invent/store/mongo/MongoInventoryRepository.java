@@ -7,4 +7,6 @@ import com.pcm.invent.store.model.Inventory;
 public interface MongoInventoryRepository extends MongoRepository<Inventory, String> {
 
 	Inventory findByName(String inventoryName);
+
+	Inventory findById(String id);
 }

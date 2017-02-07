@@ -2,6 +2,7 @@ package com.pcm.invent.store.contoller;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pcm.invent.store.error.BadRequest;
 import com.pcm.invent.store.model.Inventory;
 import com.pcm.invent.store.mongo.MongoInventoryRepository;
 import com.pcm.invent.store.service.CounterService;
@@ -46,6 +48,26 @@ public class InventoryContoller {
 		inventory.setLastModified(created);
 		Inventory saved = inventoryRepo.insert(inventory);
 		return new ResponseEntity<Inventory>(saved, HttpStatus.CREATED);
+
+	}
+
+	@PostMapping(path = "/{inventoryId}", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> put(@PathVariable String inventoryId, @RequestBody @Validated Inventory inventory) {
+
+		if (!Objects.equals(inventoryId, inventory.getName())) {
+			return new BadRequest("The request path doesn't match the Id in reqauet body " + inventoryId)
+					.asResponseEntity();
+		}
+		Inventory found = inventoryRepo.findById(inventoryId);
+		if (found == null) {
+			return new BadRequest("Record with Inventory Id provided to update is not present in system")
+					.asResponseEntity();
+		}
+		Instant lastModified = Instant.now();
+		inventory.setLastModified(lastModified);
+		inventory.setCreated(found.getCreated());
+		Inventory saved = inventoryRepo.save(inventory);
+		return new ResponseEntity<Inventory>(saved, HttpStatus.OK);
 
 	}
 

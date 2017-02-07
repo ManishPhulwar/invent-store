@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pcm.invent.store.error.BadRequest;
 import com.pcm.invent.store.model.Category;
 import com.pcm.invent.store.model.SubCategory;
 import com.pcm.invent.store.mongo.MongoCategoryRepository;
@@ -57,12 +58,12 @@ public class CategoryController {
 	@PutMapping(path = "/{categoryId}", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> put(@PathVariable int categoryId, @RequestBody @Validated Category category) {
 		if (categoryId != category.getId()) {
-			return new ResponseEntity<String>("Invalid request parameters", HttpStatus.BAD_REQUEST);
+			return new BadRequest("Category id in request path doesn't match the id in request body")
+					.asResponseEntity();
 		}
 		Category retrieivedCategory = categoryRepo.findById(categoryId);
 		if (retrieivedCategory == null) {
-			return new ResponseEntity<String>("Invalid request: No category found with ID: " + categoryId,
-					HttpStatus.NOT_FOUND);
+			return new BadRequest("No records found for categoy with ID: " + categoryId).asResponseEntity();
 		}
 		Instant LastModified = Instant.now();
 		retrieivedCategory.setLastModified(LastModified);
@@ -88,21 +89,21 @@ public class CategoryController {
 				return new ResponseEntity<SubCategory>(s, HttpStatus.OK);
 			}
 		}
-		return new ResponseEntity<String>("Invalid request: No Sub category found with ID: " + subcategoryId,
-				HttpStatus.NOT_FOUND);
+		return new BadRequest("No records found for sub categoy with ID: " + subcategoryId).asResponseEntity();
 	}
-	@PostMapping(path="/{categoryId}/subcategory",consumes = "application/json", produces = "application/json")
-	public ResponseEntity<?> postSubcategory(@PathVariable int categoryId, @RequestBody @Validated SubCategory subCategory) {
-		
+
+	@PostMapping(path = "/{categoryId}/subcategory", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> postSubcategory(@PathVariable int categoryId,
+			@RequestBody @Validated SubCategory subCategory) {
+
 		Category retrieivedCategory = categoryRepo.findById(categoryId);
 		if (retrieivedCategory == null) {
-			return new ResponseEntity<String>("Invalid request: No category found with ID: " + categoryId,
-					HttpStatus.NOT_FOUND);
+			return new BadRequest("No records found for categoy with ID: " + categoryId).asResponseEntity();
 		}
 		for (SubCategory s : retrieivedCategory.getSubcategories()) {
-			if(s.getName().equals(subCategory.getName())){
-				return new ResponseEntity<String>("Invalid request: Subcategory: "+s.toString()+" :: already prensent under category Id :" + categoryId,
-						HttpStatus.NOT_FOUND);
+			if (s.getName().equals(subCategory.getName())) {
+				return new BadRequest("Subcategory: " + s.toString() + " :: already prensent under category Id :"
+						+ categoryId + categoryId).asResponseEntity();
 			}
 		}
 		Instant lastModified = Instant.now();
@@ -115,6 +116,5 @@ public class CategoryController {
 		return new ResponseEntity<Category>(saved, HttpStatus.CREATED);
 
 	}
-	
 
 }

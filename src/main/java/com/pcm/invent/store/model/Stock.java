@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -23,7 +24,8 @@ public class Stock {
 	private String stockId;
 
 	@NotNull
-	private int ItemCode;
+	@Indexed(unique= true)
+	private int itemCode;
 
 	@NotNull
 	private float availableQuantity;
@@ -64,7 +66,7 @@ public class Stock {
 			Instant lastModified, String createdBy, String lastModifiedBy) {
 		super();
 		this.stockId = stockId;
-		ItemCode = itemCode;
+		this.itemCode = itemCode;
 		this.availableQuantity = availableQuantity;
 		this.maxLevel = maxLevel;
 		this.minLevel = minLevel;
@@ -87,11 +89,11 @@ public class Stock {
 	}
 
 	public int getItemCode() {
-		return ItemCode;
+		return itemCode;
 	}
 
 	public void setItemCode(int itemCode) {
-		ItemCode = itemCode;
+		this.itemCode = itemCode;
 	}
 
 	public float getAvailableQuantity() {

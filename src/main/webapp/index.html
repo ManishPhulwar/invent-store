@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Invent Store 1.0</title>
+<meta name="description" content="">
+<meta name="viewPort" content="width=device-width">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+<link rel="stylesheet"
+	href="vendor/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="vendor/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="vendor/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="styles/main.css">
+<!-- endBuild -->
+</head>
+<body ng-app="inventStoreWeb">
+	<div class="header">
+		<div class="navbar navbar-default" role="navigation">
+			<div class="nav-container pull-left">
+				<div class="navbar-header top-10">
+					<img id="pcmheader" src="images/pcminc.png">
+				</div>
+
+				<div class="navbar-header pull-right reduce-top-5">
+					<div class="fa fa-user fa-2x user-icon"></div>
+					<div class="user-name">User Name</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--  
+	<div class="row inventory-header">
+		<p class="header-text"><span>Inventory</span></p>
+		<div class="noprint" id="printButton"> <a href="#" onclick="window.print();return false;"> Print</a></div>
+	</div>
+	-->
+	<div class="collapse navbar-collapse" id="js-navbar-collapse">
+		<ul class="nav navbar-nav">
+			<li><a id="inventory-tab" ng-href="#/inventory" class="active">Inventory</a></li>
+			<li><a id="sale-tab" ng-href="#/sale">Sale</a></li>
+			<li><a id="inventory-tab" ng-href="#/reports">Reports</a></li>
+		</ul>
+	</div>
+
+	<hr class="horizon-divider">
+
+	<div class="container-fluid" ng-view=""></div>
+
+
+	<!-- bower.js -->
+
+	<script type="text/javascript" src="vendor/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="vendor/angular/angular.js"></script>
+	<script type="text/javascript"
+		src="vendor/angular-animate/angular-animate.js"></script>
+	<script type="text/javascript"
+		src="vendor/angular-cookies/angular-cookies.js"></script>
+	<script type="text/javascript"
+		src="vendor/angular-resource/angular-resource.js"></script>
+	<script type="text/javascript"
+		src="vendor/angular-route/angular-route.js"></script>
+	<script type="text/javascript"
+		src="vendor/angular-sanitize/angular-sanitize.js"></script>
+	<script type="text/javascript"
+		src="vendor/angular-touch/angular-touch.js"></script>
+	<script type="text/javascript"
+		src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script type="text/javascript" src="vendor/jquery-ui/jquery-ui.js"></script>
+	<script type="text/javascript"
+		src="vendor/bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript"
+		src="vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript"
+		src="vendor/angularUtils-pagination/dirPagination.js"></script>
+	<script type="text/javascript" src="vendor/ng-csv/build/ng-csv.min.js"></script>
+
+	<!-- build.js -->
+
+	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="directive.js"></script>
+
+	<script type="text/javascript"
+		src="inventstore/inventory/inventory.module.js"></script>
+
+	<script type="text/javascript"
+		src="inventstore/inventory/inventory.controller.js"></script>
+
+	<script type="text/javascript"
+		src="inventstore/inventory/inventory.service.js"></script>
+
+	<script>
+		$(document).ready(function() {
+			$(".nav a").on("click", function() {
+				$(".nav").find(".active").removeClass("active");
+				$(this).addClass("active");
+			});
+		});
+	</script>
+
+
+</body>
+</html>

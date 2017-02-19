@@ -1,0 +1,157 @@
+<div class="col-xs-12 right-panel">
+	<div class="alert alert-danger" ng-if="inventoryData.message">
+		<strong>Error Occurred</strong>{{inventoryData.message}}
+	</div>
+	<div class="alert alert-danger"
+		ng-if="inventoryData.lenght==0 && !inventoryData.message">
+		<strong>Error Occurred</strong> No Stock Found
+	</div>
+
+	<div class="col-xs-12 tableHeader pull-left" id="searchCriteriaTogel">
+		Stock List</div>
+
+	<!-- search panel start -->
+	<div class="row noprint" id="searchCriteria">
+		<div class="col-xs-12 search-controls">
+			<table class="table table-striped">
+				<thead></thead>
+				<tbody>
+					<tr>
+						<td class="col-xs-2"><input type="text" class="form-control"
+							ng-model="searchFilter.itemCode" placeholder="Item Code #"
+							empty-to-null /></td>
+						<td class="col-xs-2"><input type="text" class="form-control"
+							ng-model="searchFilter.itemName" placeholder="Item Name#"
+							empty-to-null /></td>
+							<!--  
+						<td class="col-xs-1"><select class="form-control"
+							ng-options="inventory.rackNumber as inventoy.rackNumber for inventory in prefilledData | unique 'rackNumber'"
+							ng-model="searchFilter.rackNumber" empty-to-null>
+								<option>Rack Number</option>
+						</select></td>
+						-->
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row search-button noprint" id="searchButtons">
+		<div class="col-xs-4"></div>
+		<div class="col-xs-2">
+			<input class="btn" type="submit" id="inentorySearchBtn" value="Search" ng-click="getStockData(true)">
+		</div>
+		<div class="col-xs-2">
+			<input class="btn btn-default" type="button" value="Reset" ng-click="resetSearchFilter()">
+		</div>
+	</div>
+
+	<div class="col-xs-4"></div>
+	<!-- search panel end -->
+
+	<div class="noprint" ng-show="showSpinner" id="loadingDiv">
+		<div class="loader"></div>
+	</div>
+	<div class="inventory-container"
+		ng-if="inventoryData.length>0 && !inventoryData.messsage">
+		<div class="header-container">
+			<div class="col-xs-12 inventory-wrapper">
+				<div class="col-xs-1 padding">
+					<a ng-href="/#/inventory"
+						ng-click="sortType = 'itemCode'; sortReverse = ! sortReverse"><strong>Item
+							Code</strong> <span ng-show="sortType = 'itemCode' && !sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span> <span
+						ng-show="sortType = 'itemCode' && sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span></a>
+				</div>
+				<div class="col-xs-2 padding">
+					<a ng-href="/#/inventory"
+						ng-click="sortType = 'availableQuantity'; sortReverse = ! sortReverse"><strong>Available
+							Quantity</strong> <span
+						ng-show="sortType = 'availableQuantity' && !sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span> <span
+						ng-show="sortType = 'availableQuantity' && sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span></a>
+				</div>
+				<div class="col-xs-1 padding">
+					<a ng-href="/#/inventory"
+						ng-click="sortType = 'costPrice'; sortReverse = ! sortReverse"><strong>Cost
+							Price</strong> <span ng-show="sortType = 'costPrice' && !sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span> <span
+						ng-show="sortType = 'costPrice' && sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span></a>
+				</div>
+				
+				<div class="col-xs-2 padding">
+					<a ng-href="/#/inventory"
+						ng-click="sortType = 'rackNumber'; sortReverse = ! sortReverse"><strong>Rack
+							Number</strong> <span ng-show="sortType = 'rackNumber' && !sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span> <span
+						ng-show="sortType = 'rackNumber' && sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span></a>
+				</div>
+				<div class="col-xs-1 padding">
+					<a ng-href="/#/inventory"
+						ng-click="sortType = 'maxLevel'; sortReverse = ! sortReverse"><strong>Max
+							Level</strong> <span ng-show="sortType = 'maxLevel' && !sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span> <span
+						ng-show="sortType = 'maxLevel' && sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span></a>
+				</div>
+				<div class="col-xs-1 padding">
+					<a ng-href="/#/inventory"
+						ng-click="sortType = 'minLevel'; sortReverse = ! sortReverse"><strong>Min
+							Level</strong> <span ng-show="sortType = 'minLevel' && !sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span> <span
+						ng-show="sortType = 'minLevel' && sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span></a>
+				</div>
+				<div class="col-xs-2 padding">
+					<a ng-href="/#/inventory"
+						ng-click="sortType = 'reorderLevel'; sortReverse = ! sortReverse"><strong>Reorder
+							Level</strong> <span ng-show="sortType = 'reorderLevel' && !sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span> <span
+						ng-show="sortType = 'reorderLevel' && sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span></a>
+				</div>
+				<div class="col-xs-1 padding">
+					<a ng-href="/#/inventory"
+						ng-click="sortType = 'remark'; sortReverse = ! sortReverse"><strong>Remark</strong> <span ng-show="sortType = 'remark' && !sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span> <span
+						ng-show="sortType = 'remark' && sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span></a>
+				</div>
+				<div class="col-xs-1 padding">
+					<a ng-href="/#/inventory"
+						ng-click="sortType = 'createdBy'; sortReverse = ! sortReverse"><strong>Created
+							By</strong> <span ng-show="sortType = 'createdBy' && !sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span> <span
+						ng-show="sortType = 'createdBy' && sortReverse"
+						class="fa fa-sort-asc noprint" aria-hidden="true"></span></a>
+				</div>
+			</div>
+		</div>
+
+		<!--  -->
+
+		<div class="inv-row"
+			ng-repeat="inventory in inventoryData | orderBy:sortType:sortReverse">
+			<div class="data-container col-xs-12">
+				<div class="pull-left noprint fa fa-chevron-right lr-arrow"
+					aria-hidden="true"></div>
+				<div class="col-xs-1 padding textcenter">{{inventory.itemCode}}</div>
+				<div class="col-xs-2 padding textcenter">{{inventory.availableQuantity}}</div>
+				<div class="col-xs-1 padding textcenter">{{inventory.costPrice}}</div>
+				<div class="col-xs-2 padding textcenter">{{inventory.rackNumber}}</div>
+				<div class="col-xs-1 padding textcenter">{{inventory.maxLevel}}</div>
+				<div class="col-xs-1 padding textcenter">{{inventory.minLevel}}</div>
+				<div class="col-xs-2 padding textcenter">{{inventory.reorderLevel}}</div>
+				<div class="col-xs-1 padding textcenter">{{inventory.remark}}</div>
+				<div class="col-xs-1 padding textcenter">{{inventory.createdBy}}</div>
+
+			</div>
+		</div>
+
+	</div>
+
+</div>
+

@@ -42,5 +42,7 @@ function inventoryCtrl($scope, $http, $location, $rootScope, inventoryService){
 		
 		
 	};
+	
+	$scope.getStockData(true);
 
 };

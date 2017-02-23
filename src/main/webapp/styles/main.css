@@ -129,7 +129,6 @@ a:LINK, a:VISITED, a:HOVER, a:ACTIVE {
 	padding: 10px;
 	margin: 0px;
 	margin-top: 10px;
-	margin-bottom: 5px;
 	
 }
 
@@ -166,7 +165,6 @@ a:LINK, a:VISITED, a:HOVER, a:ACTIVE {
 
 .inventory-wrapper {
 	border-top: 1px solid black;
-	border-bottom: 1px solid black;
 	background-color: #F2F2F2';
 	border-bottom-color: #CCCCCC;
 	border-top-color: #CCCCCC;
@@ -210,12 +208,13 @@ a:LINK, a:VISITED, a:HOVER, a:ACTIVE {
 	z-index: 10000000;
 	opacity: 40;
 	background-position: center;
-	border: 16px solid #82C600;
+	border: 16px solid #f3f3f3;
+	border-top: 16px solid #0000ff;
 	border-radius: 50%;
-	width: 50%;
-	height: 50%;
+	width: 50px;
+	height: 50px;
 	background-color: #666;
-	animation: spin 2s linear infinites;
+	animation: spin 0.5s linear infinite;
 	position: fixed;
 	left: 50%;
 	top: 50%;
@@ -231,29 +230,19 @@ a:LINK, a:VISITED, a:HOVER, a:ACTIVE {
 	height: 30px;
 	
 }
-@
--webkit-keyframes spin { 0% {
+@-webkit-keyframes spin 
+{ 0% 
+	{
 	-webkit-transform: rotate(0deg);
 	transform: rotate(0deg);
-}
+	}
 
 100%
-{
--webkit-transform
-:
- 
-rotate
-(359deg);
+	{
+	-webkit-transform: rotate(359deg);
+	transform: rotate(359deg);
 
-			
-transform
-:
- 
-rotate
-(359deg);
-
-	
-}
+	}
 }
 
 ::-webkit-scrollbar
@@ -290,32 +279,19 @@ rotate
 	-webkit-animation: spin 1000ms infinite linear;
 	animation: spin 1000ms infinite linear; 
 }
-.spiner
+.spinner
 {
 	left: 50%;
 	top: 50%;
 }
 
-@
-keyframes spin { 0% {
+@keyframes spin 
+{ 0% {
 	-webkit-transform: rotate(0deg);
 	transform: rotate(0deg);
-}
-100%
-{
--webkit-transform
-:
- 
-rotate
-(359deg);
-
-			
-transform
-:
- 
-rotate
-(359deg);
-
-	
-}
+	}
+100% {
+	-webkit-transform: rotate(359deg);
+	transform: rotate(359deg);
+	}
 }

@@ -23,13 +23,13 @@
 						<td class="col-xs-2"><input type="text" class="form-control"
 							ng-model="searchFilter.itemName" placeholder="Item Name#"
 							empty-to-null /></td>
-							<!--  
+							  
 						<td class="col-xs-1"><select class="form-control"
 							ng-options="inventory.rackNumber as inventoy.rackNumber for inventory in prefilledData | unique 'rackNumber'"
 							ng-model="searchFilter.rackNumber" empty-to-null>
 								<option>Rack Number</option>
 						</select></td>
-						-->
+						
 					</tr>
 				</tbody>
 			</table>
@@ -38,7 +38,7 @@
 	<div class="row search-button noprint" id="searchButtons">
 		<div class="col-xs-4"></div>
 		<div class="col-xs-2">
-			<input class="btn" type="submit" id="inentorySearchBtn" value="Search" ng-click="getStockData(true)">
+			<input class="btn" type="submit" id="inentorySearchBtn" value="Search" ng-click="getStockData()">
 		</div>
 		<div class="col-xs-2">
 			<input class="btn btn-default" type="button" value="Reset" ng-click="resetSearchFilter()">
